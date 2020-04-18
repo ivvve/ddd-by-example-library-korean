@@ -450,17 +450,16 @@ private Book handleBookPlacedOnHold(Book book, BookPlacedOnHold bookPlacedOnHold
 ```
 
 ### (No) ORM
-If you run `mvn dependency:tree` you won't find any JPA implementation. Although we think that ORM solutions (like Hibernate)
-are very powerful and useful, we decided not to use them, as we wouldn't utilize their features. What features are
-talking about? Lazy loading, caching, dirty checking. Why don't we need them? We want to have more control
-over SQL queries and minimize the object-relational impedance mismatch ourselves. Moreover, thanks to relatively
-small aggregates, containing as little data as it is required to protect the invariants, we don't need the
-lazy loading mechanism either.
-With Hexagonal Architecture we have the ability to separate domain and persistence models and test them
-independently. Moreover, we can also introduce different persistence strategies for different aggregates. 
-In this project, we utilize both plain SQL queries and `JdbcTemplate` and use new and very promising 
-project called Spring Data JDBC, that is free from the JPA-related overhead mentioned before.
-Please find below an example of a repository:
+`mvn dependency:tree`를 실행하면 어떤 JPA 구현체도 찾을 수 없을 겁니다.
+우린 (Hibernate 같은) ORM 솔루션들이 매우 강력하고 유용하다고 생각함에도 불구하고, 그것들을 사용하지 않기로 하였습니다, 우리가 그것의 기능들을 사용하지 않을 것처럼 말이죠.
+어떤 기능들이냐구요?
+Lazy loading, caching, dirty checking. 우리가 왜 그것들이 필요하죠?
+우린 SQL 쿼리 위에서(over SQL queries) 더 많은 제어권를 갖고, 우리 스스로 객체와 관련된 임피던스 부정합을(impedance mismatch) 최소화하길 원합니다.
+더 나아가, 변하지 않는 것들을 보호하기 위해 필요되는 것만큼의 작은 데이터를 가지는(containing as little data as it is required to protect the invariants) 상대적으로 크기가 작은 애그리거트들 덕분에, 우린 lazy loading 메커니즘 또한 필요하지 않습니다.
+헥사고날 아키텍쳐를 통해 우리는 도메인과 영속성 모델을 분리하고 독립적으로 이것들을 테스트할 수 있는 능력을 가집니다.
+더 나아가, 우리는 또한 다른 애그리거트들에 다른 영속성 전략을 소개할수 있습니다.
+이 프로젝트에서, 우리는 단순한(plain) SQL 쿼리들과 `JdbcTemplate`을 활용하고 (전에 언급했던 JPA와 관련된 오버헤드로부터 자유로운) Spring Data JDBC라 불리는 새롭고 매우 유망한(promising) 프로젝트를 사용할 것입니다.
+아래 repository의 예제를 살펴보세요:
 
 ```java
 interface PatronEntityRepository extends CrudRepository<PatronDatabaseEntity, Long> {
@@ -471,7 +470,7 @@ interface PatronEntityRepository extends CrudRepository<PatronDatabaseEntity, Lo
 }
 ```
 
-At the same time we propose other way of persisting aggregates, with plain SQL queries and `JdbcTemplate`:  
+동시에 우린 단순한 SQL 쿼리들과 `JdbcTemplate`을 사용하여 애그리거트를 영속화하는 다른 방식을 제안할 수 있습니다.
 
 ```java
 @AllArgsConstructor
@@ -495,9 +494,9 @@ class BookDatabaseRepository implements BookRepository, FindAvailableBook, FindB
     ...
 }
 ```
-_Please note that despite having the ability to choose different persistence implementations for aggregates
-it is recommended to stick to one option within the app/team_ 
-    
+
+_주의하세요: 애그리거트를 위한 다른 영속화 구현체들을 고를 수 있는 재량이 있더라도, 앱/팀 내에서 하나의 옵션을 계속 가져가는 것을(stick) 추천합니다_
+
 ### Architecture-code gap
 We put a lot of attention to keep the consistency between the overall architecture (including diagrams)
 and the code structure. Having identified bounded contexts we could organize them in modules (packages, to

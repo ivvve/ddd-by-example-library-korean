@@ -1,7 +1,17 @@
-[![CircleCI](https://circleci.com/gh/ddd-by-examples/library.svg?style=svg)](https://circleci.com/gh/ddd-by-examples/library)
-[![Code Coverage](https://codecov.io/gh/ddd-by-examples/library/branch/master/graph/badge.svg)](https://codecov.io/gh/ddd-by-examples/library)
+# 일러두기
 
-# Table of contents
+This repo is for translating [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library) in Korean.
+I don't have any copyrights with this code and information.
+If there's a problem with the copyrights I'll close this repo ASAP.
+
+이 repo는 [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library)를 fork하여 한국어로 번역하는 repo입니다.
+본인에게 해당 코드 및 지식에 대한 저작권이 없으며 문제 시 이 repo는 닫도록 하겠습니다.
+
+DDD를 공부하고 실천하고자 노력하시는 모든 분들에게 도움이 되었으면 좋겠습니다.
+
+---
+
+# 목차
 
 1. [About](#about)
 2. [Domain description](#domain-description)

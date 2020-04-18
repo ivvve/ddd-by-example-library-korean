@@ -1,7 +1,7 @@
 # 일러두기
 
-This repo is for translating [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library) in Korean.
-I don't have any copyrights with this code and information.
+This repo is for translating [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library) in Korean.  
+I don't have any copyrights with this code and information.  
 If there's a problem with the copyrights I'll close this repo ASAP.
 
 이 repo는 [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library)를 fork하여 한국어로 번역하는 repo입니다.  
@@ -32,11 +32,13 @@ DDD를 공부하고 실천하고자 노력하시는 모든 분들에게 도움�
 5. [References](#references)
 
 ## About
+[원문](https://github.com/ddd-by-examples/library#about)
 
 이 프로젝트는 실제 [비지니스 요구사항](#도메인-설명)들 기반의 도서관(library) 프로젝트입니다.
 우리는 Domain Driven Design, Behavior-Driven Development, Event Storming, User Story Mapping과 강하게 연결된 기술들을 사용합니다.
 
 ## 도메인 설명
+[원문](https://github.com/ddd-by-examples/library#domain-description)
 
 공공 도서관은 고객들이 여러 도서관 지점들에서 책을 예약할 수 있게 합니다.  
 예약 가능한(available) 책들은 오직 한 명의 고객에 의해서만 예약 될 수 있습니다.  
@@ -458,6 +460,8 @@ private Book handleBookPlacedOnHold(Book book, BookPlacedOnHold bookPlacedOnHold
 ```
 
 ### (No) ORM
+[원문](https://github.com/ddd-by-examples/library#no-orm)
+
 `mvn dependency:tree`를 실행하면 어떤 JPA 구현체도 찾을 수 없을 겁니다.  
 우린 (Hibernate 같은) ORM 솔루션들이 매우 강력하고 유용하다고 생각함에도 불구하고, 그것들을 사용하지 않기로 하였습니다, 우리가 그것의 기능들을 사용하지 않을 것처럼 말이죠.  
 어떤 기능들이냐구요?  

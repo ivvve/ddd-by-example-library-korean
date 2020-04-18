@@ -4,8 +4,8 @@ This repo is for translating [ddd-by-examples의 library repo](https://github.co
 I don't have any copyrights with this code and information.
 If there's a problem with the copyrights I'll close this repo ASAP.
 
-이 repo는 [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library)를 fork하여 한국어로 번역하는 repo입니다.
-본인에게 해당 코드 및 지식에 대한 저작권이 없으며 문제 시 이 repo는 닫도록 하겠습니다.
+이 repo는 [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library)를 fork하여 한국어로 번역하는 repo입니다.  
+저에게는 해당 코드 및 지식에 대한 저작권이 없으며 문제 시 이 repo는 닫도록 하겠습니다.
 
 DDD를 공부하고 실천하고자 노력하시는 모든 분들에게 도움이 되었으면 좋겠습니다.
 
@@ -14,7 +14,7 @@ DDD를 공부하고 실천하고자 노력하시는 모든 분들에게 도움�
 # 목차
 
 1. [About](#about)
-2. [Domain description](#domain-description)
+2. [도메인 설명](#도메인-설명)
 3. [General assumptions](#general-assumptions)  
     3.1 [Process discovery](#process-discovery)  
     3.2 [Project structure and architecture](#project-structure-and-architecture)    
@@ -33,37 +33,35 @@ DDD를 공부하고 실천하고자 노력하시는 모든 분들에게 도움�
 
 ## About
 
-This is a project of a library, driven by real [business requirements](#domain-description).
-We use techniques strongly connected with Domain Driven Design, Behavior-Driven Development,
-Event Storming, User Story Mapping. 
+이 프로젝트는 실제 [비지니스 요구사항](#도메인-설명)들 기반의 도서관(library) 프로젝트입니다.
+우리는 Domain Driven Design, Behavior-Driven Development, Event Storming, User Story Mapping과 강하게 연결된 기술들을 사용합니다.
 
-## Domain description
+## 도메인 설명
 
-A public library allows patrons to place books on hold at its various library branches.
-Available books can be placed on hold only by one patron at any given point in time.
-Books are either circulating or restricted, and can have retrieval or usage fees.
-A restricted book can only be held by a researcher patron. A regular patron is limited
-to five holds at any given moment, while a researcher patron is allowed an unlimited number
-of holds. An open-ended book hold is active until the patron checks out the book, at which time it
-is completed. A closed-ended book hold that is not completed within a fixed number of 
-days after it was requested will expire. This check is done at the beginning of a day by 
-taking a look at daily sheet with expiring holds. Only a researcher patron can request
-an open-ended hold duration. Any patron with more than two overdue checkouts at a library
-branch will get a rejection if trying a hold at that same library branch. A book can be
-checked out for up to 60 days. Check for overdue checkouts is done by taking a look at
-daily sheet with overdue checkouts. Patron interacts with his/her current holds, checkouts, etc.
-by taking a look at patron profile. Patron profile looks like a daily sheet, but the
-information there is limited to one patron and is not necessarily daily. Currently a
-patron can see current holds (not canceled nor expired) and current checkouts (including overdue).
-Also, he/she is able to hold a book and cancel a hold.
+공공 도서관은 고객들이 여러 도서관 지점들에서 책을 예약할 수 있게 합니다.  
+예약 가능한(available) 책들은 오직 한 명의 고객에 의해서만 예약 될 수 있습니다.  
+책들은 유포 중(circulating)이거나 제한(restricted)되고, 회수(retrieval)나 사용료가 있을 수 있습니다.  
+예약이 제한된 책은 오직 연구원인 고객들에 의해서만 예약이 될 수 있습니다.  
+일반 고객은 책 예약이 5권으로 제한되어있지만, 연구원인 고객은 예약 권 수가 무제한으로 허용됩니다.  
+기한이 없는(open-ended) 책 예약은 고객이 책을 대여할 때까지 활성화되고, 그 때 완료가 됩니다.  
+기한이 있는(closed-ended) 책 예약은 예약이 요청된 이후로 정해진 일자가 지나기 전까지 완료가 되지 않고 만료가 됩니다  
+(A closed-ended book hold that is not completed within a fixed number of days after it was requested will expire).  
+이에 대한 확인는 하루의 시작에 만료되는 예약의 일일 시트를 확임함으로써 이뤄집니다.  
+오직 연구원인 고객이 기한이 없는 예약을 요청할 수 있습니다.  
+어느 고객이더라도 책을 2번 이상 연체 대여한 경우 같은 도서관 지점에 예약을 하려고 하면 도서관 지점은 예약을 거절합니다.  
+책은 최대 60일 동안 대여할 수 있습니다.  
+연체에 대한 확인은 일일 연체 대여 시트를 확인함으로서 이뤄집니다.  
+고객은 고객 프로필 확인을 통해 그/그녀의 예약, 대여 등과 상호작용(interact)합니다.  
+고객 프로필은 일일 시트와 같이 생겼지만, 정보는 한 명의 고객에게 제한되며 꼭 일일(daily)일 필요는 없습니다.  
+현재는 고객이 현재 (취소나 만료된 것이 아닌)예약들과 현재 (연체를 포함하여)대여를 확인할 수 있습니다.  
+또한, 그/그녀는 책을 예약하고 예약을 취소할 수 있습니다.  
 
-How actually a patron knows which books are there to lend? Library has its catalogue of
-books where books are added together with their specific instances. A specific book
-instance of a book can be added only if there is book with matching ISBN already in
-the catalogue.  Book must have non-empty title and price. At the time of adding an instance
-we decide whether it will be Circulating or Restricted. This enables
-us to have book with same ISBN as circulated and restricted at the same time (for instance,
-there is a book signed by the author that we want to keep as Restricted)
+실제로는 어떻게 고객이 빌릴 수 있는 책들이 어떤 것인지 아냐구요?  
+도서관은 자체 책 카탈로그를 가지고 있고 이는 책들은 특정 책 인스턴스들과 함께 더해질 수 있습니다.  
+책의 특정 책 인스턴스는 오직 카탈로그 내에 존재하는 ISBN과 일치하는 책이 있는 경우에만 추가될 수 있습니다.  
+책은 항상 비어있지 않은 제목과 가격을 갖고 있습니다.  
+책 인스턴스를 더할 때, 우리는 책이 유포 중인지 제한되있는지를 결정해야합니다.  
+이는 우리가 같은 ISBN의 책이지만 유포된 책 인스턴스와 제한된 책 인스턴스를 갖을 수 있게 합니다 (예를 들면, Restricted로 보관하고 싶은 저자가 서명한 책이 있는 경우).
 
 ## General assumptions
 
@@ -460,15 +458,15 @@ private Book handleBookPlacedOnHold(Book book, BookPlacedOnHold bookPlacedOnHold
 ```
 
 ### (No) ORM
-`mvn dependency:tree`를 실행하면 어떤 JPA 구현체도 찾을 수 없을 겁니다.
-우린 (Hibernate 같은) ORM 솔루션들이 매우 강력하고 유용하다고 생각함에도 불구하고, 그것들을 사용하지 않기로 하였습니다, 우리가 그것의 기능들을 사용하지 않을 것처럼 말이죠.
-어떤 기능들이냐구요?
-Lazy loading, caching, dirty checking. 우리가 왜 그것들이 필요하죠?
-우린 SQL 쿼리 위에서(over SQL queries) 더 많은 제어권를 갖고, 우리 스스로 객체와 관련된 임피던스 부정합을(impedance mismatch) 최소화하길 원합니다.
-더 나아가, 변하지 않는 것들을 보호하기 위해 필요되는 것만큼의 작은 데이터를 가지는(containing as little data as it is required to protect the invariants) 상대적으로 크기가 작은 애그리거트들 덕분에, 우린 lazy loading 메커니즘 또한 필요하지 않습니다.
-헥사고날 아키텍쳐를 통해 우리는 도메인과 영속성 모델을 분리하고 독립적으로 이것들을 테스트할 수 있는 능력을 가집니다.
-더 나아가, 우리는 또한 다른 애그리거트들에 다른 영속성 전략을 소개할수 있습니다.
-이 프로젝트에서, 우리는 단순한(plain) SQL 쿼리들과 `JdbcTemplate`을 활용하고 (전에 언급했던 JPA와 관련된 오버헤드로부터 자유로운) Spring Data JDBC라 불리는 새롭고 매우 유망한(promising) 프로젝트를 사용할 것입니다.
+`mvn dependency:tree`를 실행하면 어떤 JPA 구현체도 찾을 수 없을 겁니다.  
+우린 (Hibernate 같은) ORM 솔루션들이 매우 강력하고 유용하다고 생각함에도 불구하고, 그것들을 사용하지 않기로 하였습니다, 우리가 그것의 기능들을 사용하지 않을 것처럼 말이죠.  
+어떤 기능들이냐구요?  
+Lazy loading, caching, dirty checking 입니다. 우리가 왜 그것들이 필요하죠?  
+우린 SQL 쿼리 위에서(over SQL queries) 더 많은 제어권를 갖고, 우리 스스로 객체와 관련된 임피던스 부정합을(impedance mismatch) 최소화하길 원합니다.  
+더 나아가, 변하지 않는 것들을 보호하기 위해 필요되는 것만큼의 작은 데이터를 가지는(containing as little data as it is required to protect the invariants) 상대적으로 크기가 작은 애그리거트들 덕분에, 우린 lazy loading 메커니즘 또한 필요하지 않습니다.  
+헥사고날 아키텍쳐를 통해 우리는 도메인과 영속성 모델을 분리하고 독립적으로 이것들을 테스트할 수 있는 능력을 가집니다.  
+더 나아가, 우리는 또한 다른 애그리거트들에 다른 영속성 전략을 소개할수 있습니다.  
+이 프로젝트에서, 우리는 단순한(plain) SQL 쿼리들과 `JdbcTemplate`을 활용하고 (전에 언급했던 JPA와 관련된 오버헤드로부터 자유로운) Spring Data JDBC라 불리는 새롭고 매우 유망한(promising) 프로젝트를 사용할 것입니다.  
 아래 repository의 예제를 살펴보세요:
 
 ```java

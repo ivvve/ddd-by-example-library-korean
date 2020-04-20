@@ -1,6 +1,6 @@
 # 일러두기
 
-This repo is for translating [ddd-by-examples의 library repo](https://github.com/ddd-by-examples/library) in Korean.  
+This repo is for translating [ddd-by-examples library repo](https://github.com/ddd-by-examples/library) in Korean.  
 I don't have any copyrights with this code and information.  
 If there's a problem with the copyrights I'll close this repo ASAP.
 
@@ -17,7 +17,7 @@ DDD를 공부하고 실천하고자 노력하시는 모든 분들에게 도움�
 2. [도메인 설명](#도메인-설명)
 3. [General assumptions](#general-assumptions)  
     3.1 [Process discovery](#process-discovery)  
-    3.2 [Project structure and architecture](#project-structure-and-architecture)    
+    3.2 [프로젝트 구조와 아키텍쳐](#프로젝트-구조와-아키텍쳐)    
     3.3 [Aggregates](#aggregates)  
     3.4 [Events](#events)  
     3.4.1 [Events in Repositories](#events-in-repositories)   
@@ -89,31 +89,28 @@ Please follow the links below to get more details on each of the mentioned steps
 - [Example Mapping](docs/example-mapping.md)
 - [Design Level EventStorming](docs/design-level.md)
 
-### Project structure and architecture
-At the very beginning, not to overcomplicate the project, we decided to assign each bounded context
-to a separate package, which means that the system is a modular monolith. There are no obstacles, though,
-to put contexts into maven modules or finally into microservices.
+### 프로젝트 구조와 아키텍쳐
+[원문](https://github.com/ddd-by-examples/library#project-structure-and-architecture)
 
-Bounded contexts should (amongst others) introduce autonomy in the sense of architecture. Thus, each module
-encapsulating the context has its own local architecture aligned to problem complexity.
-In the case of a context, where we identified true business logic (**lending**) we introduced a domain model
-that is a simplified (for the purpose of the project) abstraction of the reality and utilized
-hexagonal architecture. In the case of a context, that during Event Storming turned out to lack any complex
-domain logic, we applied CRUD-like local architecture.  
+제일 처음에, 너무 프로젝트를 복잡하게 하지 않기 위해, 우리는 각 바운디드 컨텐스트를 분리된 패키지에 할당하기로 결정했습니다. 이는 시스템이 모듈형 모듈리스(modular monolith)임을 뜻합니다.  
+아무런 장애물이 없긴하지만, 컨텍스트들을 maven 모듈에 넣거나 결국 마이크로 서비스에 넣습니다.  
+(There are no obstacles, though, to put contexts into maven modules or finally into microservices)  
+바운디드 컨텍스들은 아키텍쳐 면에서 (다른 컨텍스트들 사이에서) 자율성을 가져야합니다.  
+그러므로, 컨텍스트를 캡슐화하는 각 모듈은 문제의 복잡성에 맞춰 모듈 자신의 로컬 아키텍쳐를 가지고 있습니다.  
+컨텍스트의 경우, 우리가 진정한 비지니스 로직(**빌려주기(lending)**)을 식별한 곳에서 우린 현실의 (프로젝트의 목적을 위해)단순화된 추상화인 도메인 모델을 도입하고 헥사고날 아키텍쳐를 활용했습니다.  
+컨텍스트의 경우, Event Storming 동안 복잡한 도메인 로직이 부족하다 판단되었기 대문에, 우리는 CRUD 형식의 로컬 아키텍쳐를 적용했습니다.
 
 ![Architecture](docs/images/architecture-big-picture.png) 
 
-If we are talking about hexagonal architecture, it lets us separate domain and application logic from
-frameworks (and infrastructure). What do we gain with this approach? Firstly, we can unit test most important
-part of the application - **business logic** - usually without the need to stub any dependency.
-Secondly, we create ourselves an opportunity to adjust infrastructure layer without the worry of
-breaking the core functionality. In the infrastructure layer we intensively use Spring Framework
-as probably the most mature and powerful application framework with an incredible test support.
-More information about how we use Spring you will find [here](#spring).
-
-As we already mentioned, the architecture was driven by Event Storming sessions. Apart from identifying
-contexts and their complexity, we could also make a decision that we separate read and write models (CQRS).
-As an example you can have a look at **Patron Profiles** and *Daily Sheets*.
+우리가 헥사고날 아키텍쳐에 대해 얘기하자면, 이는 우리가 도메인과 애플리케이션 로직을 프레임워크(와 인프라스트럭쳐)와 분리하도록 합니다.  
+이러한 접근을 통해 우린 무엇을 얻을까요?  
+먼저, 우린 애플리케이션의 가장 중요한 부분 - **비지니스 로직** - 에 아무런 의존성 스텁을 필요로 하지 않고 단위 테스트를 할 수 있습니다.  
+둘째로, 우리는 우리 스스로 코어 기능을 깰 걱정없이 인프라스트럭트 레이어를 수정할 기회를 만듭니다.  
+인프라스트럭쳐 레이어에서는 우리는 훌륭한 테스트를 지원하는 아마도 가장 성숙하고 강력한 애플리케이션 프레임워크인 Spring 프레임워크를 집중적으로 사용할 것입니다.  
+우리가 어떻게 Spring을 사용하는지에 대한 더 많은 정보는 [여기](#spring)에서 확인합니다.  
+우리가 미리 언급했듯이, 아키텍쳐는 Event Storming 세션을 통해 이끌어졌습니다(the architecture was driven by Event Storming sessions).  
+식별된 컨텍스트들과 컨텍스트들의 복잡성 외에도, 우린 또한 읽기와 쓰기 모델을 분리하는(CQRS) 결정을 할 수 있습니다.  
+예제로 **고객 프로필(Patron Profiles)** 과 **일일 시트(Daily Sheets)** 를 살펴볼 수 있습니다.
 
 ### Aggregates
 Aggregates discovered during Event Storming sessions communicate with each other with events. There is
